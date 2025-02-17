@@ -71,6 +71,7 @@
                 <h4 class="modal-title">Create New Project</h4>
               </div>
               <form class="form-horizontal" method="POST">
+                {{ form.hidden_tag() }}
                 <div class="modal-body">
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="project-name">Project Name</label>
@@ -187,4 +188,3 @@
   </body>
 </html>
 <!-- vim: set et sw=2 ts=2 sts=2 ff=unix fenc=utf8 syntax=htmldjango: -->
-

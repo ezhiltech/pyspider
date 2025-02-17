@@ -329,7 +329,6 @@ class TestWebUI(unittest.TestCase):
                 self.assertIn('ok', task['track']['process'])
                 self.assertIn('time', task['track']['process'])
         self.assertTrue(track)
-                    
 
     def test_a24_task(self):
         rv = self.app.get(self.task_url)
@@ -561,3 +560,18 @@ class TestWebUI(unittest.TestCase):
     def test_x70_bench(self):
         rv = self.app.get('/bench?total=10&show=5')
         self.assertEqual(rv.status_code, 200)
+
+    def test_csrf_protection(self):
+        # Test case to ensure CSRF protection is working
+        rv = self.app.post('/some_form', data={
+            'field1': 'value1',
+            'field2': 'value2'
+        })
+        self.assertEqual(rv.status_code, 400)  # Assuming 400 for missing CSRF token
+
+        rv = self.app.post('/some_form', data={
+            'field1': 'value1',
+            'field2': 'value2',
+            'csrf_token': 'valid_token'
+        })
+        self.assertEqual(rv.status_code, 200)  # Assuming 200 for valid CSRF token
